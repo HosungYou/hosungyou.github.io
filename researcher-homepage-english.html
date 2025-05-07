@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Researcher Homepage</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            background-color: #f8f8f8;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 40px 0;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+        }
+        
+        .profile {
+            margin-top: 20px;
+        }
+        
+        .profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        /* Tab Styles */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            font-size: 1rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .tab.active {
+            color: #000;
+            font-weight: 600;
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #000;
+        }
+        
+        .tab:hover {
+            color: #000;
+        }
+        
+        /* Content Styles */
+        .content {
+            padding: 30px 0;
+            min-height: 500px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* Research Item Styles */
+        .research-item {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .research-item:last-child {
+            border-bottom: none;
+        }
+        
+        .research-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .research-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        /* CV Styles */
+        .cv-section {
+            margin-bottom: 30px;
+        }
+        
+        .cv-section h3 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .cv-item {
+            margin-bottom: 20px;
+        }
+        
+        .cv-item .period {
+            font-weight: 500;
+        }
+        
+        /* Discussion Styles */
+        .discussion-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .discussion-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .discussion-meta {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        /* Data and Code Styles */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        
+        .resource-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .resource-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .resource-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .resource-type {
+            display: inline-block;
+            padding: 3px 8px;
+            background: #eee;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            margin: 0 10px;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="profile">
+            <img src="/api/placeholder/150/150" alt="Researcher Profile">
+        </div>
+        <h1>Dr. John Smith</h1>
+        <p>Computer Science | Artificial Intelligence | Data Science</p>
+        <p>Department of Computer Science, Stanford University</p>
+    </header>
+    
+    <div class="tabs">
+        <button class="tab active" onclick="openTab('home')">Home</button>
+        <button class="tab" onclick="openTab('research')">Research</button>
+        <button class="tab" onclick="openTab('cv')">CV</button>
+        <button class="tab" onclick="openTab('discussion')">Discussion</button>
+        <button class="tab" onclick="openTab('data-codes')">Data & Codes</button>
+    </div>
+    
+    <div class="content">
+        <!-- Home Tab -->
+        <div id="home" class="tab-content active">
+            <h2>Welcome</h2>
+            <p>Hello, I am Dr. John Smith, an Assistant Professor in the Department of Computer Science at Stanford University. My primary research focuses on artificial intelligence, machine learning, and data science.</p>
+            
+            <p>Currently, I am working on research related to <strong>interpretability of deep learning models</strong> and <strong>novel methodologies for time series data analysis</strong>. My research aims to make complex deep learning models more transparent and to effectively extract meaningful patterns from time series data.</p>
+            
+            <h3>Recent News</h3>
+            <ul>
+                <li>[2025.04] Our paper "Novel Interpretation Methods for Time Series Data" has been published in the Journal of Machine Learning Research (JMLR).</li>
+                <li>[2025.03] Presented our latest research at the International Conference on Machine Learning (ICML 2025).</li>
+                <li>[2025.02] Delivered an invited talk at the AI Society Regular Seminar.</li>
+            </ul>
+            
+            <h3>Lab Information</h3>
+            <p>Our laboratory consists of passionate researchers working on various topics in computer science and artificial intelligence. Together with graduate students at both the master's and doctoral levels, we strive to stay at the forefront of current research trends and develop innovative solutions.</p>
+            
+            <p>For lab applications and collaboration inquiries, please contact me at <a href="mailto:johnsmith@stanford.edu">johnsmith@stanford.edu</a>.</p>
+        </div>
+        
+        <!-- Research Tab -->
+        <div id="research" class="tab-content">
+            <h2>Research Areas</h2>
+            <p>My research primarily focuses on the following areas:</p>
+            <ul>
+                <li>Interpretability of Deep Learning Models</li>
+                <li>Time Series Data Analysis Methods</li>
+                <li>Ethical Aspects of Artificial Intelligence</li>
+                <li>Natural Language Processing and Computer Vision</li>
+            </ul>
+            
+            <h2>Key Publications</h2>
+            
+            <div class="research-item">
+                <h3 class="research-title">A Novel Approach to Visualizing Decision Processes in Deep Learning Models</h3>
+                <div class="research-meta">
+                    John Smith, Michael Johnson, Sarah Williams<br>
+                    Neural Information Processing Systems (NeurIPS), 2024
+                </div>
+                <p>In this research, we propose a novel methodology for intuitively visualizing the decision-making process of deep learning models. The proposed approach transforms the complex internal workings of neural networks into intuitive visual elements, enabling even non-experts to understand the reasoning behind model predictions.</p>
+                <p><a href="#">Paper PDF</a> | <a href="#">Code</a> | <a href="#">Presentation</a></p>
+            </div>
+            
+            <div class="research-item">
+                <h3 class="research-title">Novel Interpretation Methods for Time Series Data</h3>
+                <div class="research-meta">
+                    John Smith, Robert Chen, Emily Davis<br>
+                    Journal of Machine Learning Research (JMLR), 2025
+                </div>
+                <p>This paper presents a new methodology for effectively separating and analyzing long-term patterns and short-term volatility in time series data. The proposed method can be applied to time series analysis in various fields such as finance, healthcare, and climate, showing superior predictive performance compared to existing methodologies.</p>
+                <p><a href="#">Paper PDF</a> | <a href="#">Code</a> | <a href="#">Dataset</a></p>
+            </div>
+            
+            <div class="research-item">
+                <h3 class="research-title">A Framework for Ethical Decision-Making in AI Systems</h3>
+                <div class="research-meta">
+                    John Smith, Lisa Park<br>
+                    AI Ethics Journal, 2024
+                </div>
+                <p>As the impact of AI systems on society grows, ethical decision-making has emerged as a critical issue. This research systematizes the ethical principles that should be considered when designing AI systems and proposes a framework for integrating them into the actual decision-making process.</p>
+                <p><a href="#">Paper PDF</a> | <a href="#">Case Studies</a></p>
+            </div>
+        </div>
+        
+        <!-- CV Tab -->
+        <div id="cv" class="tab-content">
+            <h2>Curriculum Vitae</h2>
+            
+            <div class="cv-section">
+                <h3>Education</h3>
+                <div class="cv-item">
+                    <div class="period">2018 - 2022</div>
+                    <div class="description">
+                        <strong>Ph.D. in Computer Science</strong><br>
+                        Stanford University, USA<br>
+                        Dissertation: "Methods for Improving Interpretability of Deep Learning Models"<br>
+                        Advisor: Prof. James Wilson
+                    </div>
+                </div>
+                
+                <div class="cv-item">
+                    <div class="period">2016 - 2018</div>
+                    <div class="description">
+                        <strong>M.S. in Computer Science</strong><br>
+                        Stanford University, USA<br>
+                        Thesis: "Development of Deep Learning Models for Time Series Data Analysis"
+                    </div>
+                </div>
+                
+                <div class="cv-item">
+                    <div class="period">2012 - 2016</div>
+                    <div class="description">
+                        <strong>B.S. in Computer Engineering</strong><br>
+                        Massachusetts Institute of Technology (MIT), USA
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cv-section">
+                <h3>Professional Experience</h3>
+                <div class="cv-item">
+                    <div class="period">2022 - Present</div>
+                    <div class="description">
+                        <strong>Assistant Professor</strong><br>
+                        Department of Computer Science, Stanford University, USA<br>
+                        Running the AI and Machine Learning Research Laboratory
+                    </div>
+                </div>
+                
+                <div class="cv-item">
+                    <div class="period">2021 - 2022</div>
+                    <div class="description">
+                        <strong>Research Scientist</strong><br>
+                        Google AI Research, USA<br>
+                        Participated in research projects on deep learning model interpretability
+                    </div>
+                </div>
+                
+                <div class="cv-item">
+                    <div class="period">2020 (6 months)</div>
+                    <div class="description">
+                        <strong>Research Intern</strong><br>
+                        OpenAI, USA<br>
+                        Developed time series forecasting models
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cv-section">
+                <h3>Awards and Grants</h3>
+                <div class="cv-item">
+                    <div class="period">2024</div>
+                    <div class="description">
+                        <strong>Outstanding Paper Award</strong><br>
+                        Annual Conference of the American Association for Artificial Intelligence
+                    </div>
+                </div>
+                
+                <div class="cv-item">
+                    <div class="period">2023 - 2025</div>
+                    <div class="description">
+                        <strong>Early Career Researcher Grant</strong><br>
+                        National Science Foundation, 3-year project
+                    </div>
+                </div>
+                
+                <div class="cv-item">
+                    <div class="period">2022</div>
+                    <div class="description">
+                        <strong>Outstanding Doctoral Dissertation Award</strong><br>
+                        School of Engineering, Stanford University
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cv-section">
+                <h3>Professional Activities</h3>
+                <div class="cv-item">
+                    <div class="description">
+                        <strong>Journal Reviewer</strong><br>
+                        - Journal of Machine Learning Research (JMLR)<br>
+                        - IEEE Transactions on Neural Networks and Learning Systems<br>
+                        - Pattern Recognition
+                    </div>
+                </div>
+                
+                <div class="cv-item">
+                    <div class="description">
+                        <strong>Conference Program Committee</strong><br>
+                        - Neural Information Processing Systems (NeurIPS), 2023-2024<br>
+                        - International Conference on Machine Learning (ICML), 2024<br>
+                        - AAAI Conference on Artificial Intelligence, 2023-2025
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Discussion Tab -->
+        <div id="discussion" class="tab-content">
+            <h2>Research Discussions</h2>
+            <p>Discussion topics related to current research trends. Comments and feedback are welcome.</p>
+            
+            <div class="discussion-item">
+                <h3 class="discussion-title">Interpretability of Deep Learning Models: Current Limitations and Future Directions</h3>
+                <div class="discussion-meta">
+                    Posted: April 10, 2025 | Comments: 15
+                </div>
+                <p>While the performance of deep learning models has improved dramatically in recent years, interpretability remains a significant challenge. Understanding the basis of model judgments is particularly essential in fields requiring critical decision-making, such as medicine, finance, and law. This discussion aims to address the limitations of current interpretability methodologies and strategies to overcome them.</p>
+                <a href="#">View Full Discussion and Join the Conversation</a>
+            </div>
+            
+            <div class="discussion-item">
+                <h3 class="discussion-title">Latest Trends in Time Series Data Analysis</h3>
+                <div class="discussion-meta">
+                    Posted: March 22, 2025 | Comments: 8
+                </div>
+                <p>Transformer-based models and causal discovery methodologies have recently gained attention in the field of time series data analysis. This discussion explores the advantages and disadvantages of these approaches compared to traditional time series models (ARIMA, GARCH, etc.) and future research directions.</p>
+                <a href="#">View Full Discussion and Join the Conversation</a>
+            </div>
+            
+            <div class="discussion-item">
+                <h3 class="discussion-title">AI Ethics and Regulation: The Role of Researchers</h3>
+                <div class="discussion-meta">
+                    Posted: February 15, 2025 | Comments: 23
+                </div>
+                <p>With the advancement of AI technology, discussions on ethical issues and regulations have become more active. As AI researchers, we have responsibility not only for technological development but also for social impact. This discussion aims to share opinions on what role AI researchers should play in developing ethical AI.</p>
+                <a href="#">View Full Discussion and Join the Conversation</a>
+            </div>
+            
+            <div class="discussion-item">
+                <h3 class="discussion-title">Start a New Discussion</h3>
+                <p>Would you like to start a discussion on a new research topic or idea?</p>
+                <a href="#" class="btn">Propose a New Discussion Topic</a>
+            </div>
+        </div>
+        
+        <!-- Data and Codes Tab -->
+        <div id="data-codes" class="tab-content">
+            <h2>Datasets and Code</h2>
+            <p>Sharing datasets and code related to research results. You can freely use them for academic and non-commercial purposes. Please provide appropriate citations when using.</p>
+            
+            <div class="resource-grid">
+                <div class="resource-item">
+                    <span class="resource-type">Dataset</span>
+                    <h3 class="resource-title">Multivariate Time Series Benchmark Dataset</h3>
+                    <p>A benchmark dataset including real time series data from various domains such as finance, healthcare, and climate.</p>
+                    <p><strong>Size:</strong> 2.4GB</p>
+                    <p><strong>Updated:</strong> 2025-02-15</p>
+                    <a href="#">Download</a> | <a href="#">Documentation</a>
+                </div>
+                
+                <div class="resource-item">
+                    <span class="resource-type">Code</span>
+                    <h3 class="resource-title">Deep Learning Model Interpretation Tool</h3>
+                    <p>A Python package for analyzing and visualizing the decision-making process of deep learning models.</p>
+                    <p><strong>Language:</strong> Python</p>
+                    <p><strong>Updated:</strong> 2025-03-10</p>
+                    <a href="#">GitHub</a> | <a href="#">Documentation</a>
+                </div>
+                
+                <div class="resource-item">
+                    <span class="resource-type">Code</span>
+                    <h3 class="resource-title">Time Series Analysis Framework</h3>
+                    <p>A framework that allows easy application and comparison of various time series analysis methodologies.</p>
+                    <p><strong>Language:</strong> Python, R</p>
+                    <p><strong>Updated:</strong> 2025-04-01</p>
+                    <a href="#">GitHub</a> | <a href="#">Documentation</a> | <a href="#">Tutorial</a>
+                </div>
+                
+                <div class="resource-item">
+                    <span class="resource-type">Learning Material</span>
+                    <h3 class="resource-title">AI Ethics Case Studies</h3>
+                    <p>Actual cases and analysis materials related to ethical issues in artificial intelligence.</p>
+                    <p><strong>Format:</strong> PDF, Case Studies</p>
+                    <p><strong>Updated:</strong> 2024-12-05</p>
+                    <a href="#">Download</a>
+                </div>
+                
+                <div class="resource-item">
+                    <span class="resource-type">Dataset</span>
+                    <h3 class="resource-title">Interpretability Evaluation Dataset</h3>
+                    <p>A benchmark dataset for objectively evaluating the interpretability of deep learning models.</p>
+                    <p><strong>Size:</strong> 1.1GB</p>
+                    <p><strong>Updated:</strong> 2024-11-20</p>
+                    <a href="#">Download</a> | <a href="#">Paper</a>
+                </div>
+                
+                <div class="resource-item">
+                    <span class="resource-type">Code</span>
+                    <h3 class="resource-title">NeurIPS 2024 Paper Implementation Code</h3>
+                    <p>Implementation code for the paper "A Novel Approach to Visualizing Decision Processes in Deep Learning Models."</p>
+                    <p><strong>Language:</strong> Python, PyTorch</p>
+                    <p><strong>Updated:</strong> 2024-10-15</p>
+                    <a href="#">GitHub</a> | <a href="#">Demo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 Dr. John Smith | Department of Computer Science, Stanford University</p>
+        <p>Contact: <a href="mailto:johnsmith@stanford.edu">johnsmith@stanford.edu</a> | Office: Gates Building, Room 353</p>
+        <div class="social-links">
+            <a href="#">Google Scholar</a> |
+            <a href="#">GitHub</a> |
+            <a href="#">LinkedIn</a> |
+            <a href="#">Twitter</a>
+        </div>
+    </footer>
+
+    <script>
+        function openTab(tabName) {
+            // Hide all tab contents
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            // Deactivate all tab buttons
+            var tabs = document.getElementsByClassName("tab");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add("active");
+            
+            // Activate selected tab button
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
