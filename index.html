@@ -3,673 +3,596 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hosung You - Researcher</title>
+    <title>Hosung You - Future of Workforce Development & AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Base Styles */
+        :root {
+            --bg-primary: #FFFFFF; /* Clean white background */
+            --bg-secondary: #F8F9FA; /* Very light grey for subtle contrast */
+            --bg-accent-subtle: rgba(0, 123, 255, 0.03); /* Very subtle blue for backgrounds */
+            --text-primary: #212529; /* Dark grey for main text */
+            --text-secondary: #5A626B; /* Medium grey for less emphasis */
+            --accent-primary: #007BFF; /* Vibrant Blue - Google/IBM style */
+            --accent-secondary: #00D1FF; /* Lighter, futuristic cyan/blue */
+            --border-color: #DEE2E6; /* Light border color */
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            --card-hover-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            --font-heading: 'Manrope', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-speed: 0.3s;
+        }
+
+        /* Reset and Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: var(--font-body);
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-            background-color: #f8f8f8;
+            padding: 0 24px;
         }
-        
-        /* Header Styles */
-        header {
+
+        /* Header Section */
+        .site-header {
+            background-color: var(--bg-primary); 
             padding: 40px 0;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--border-color);
         }
-        
-        h1 {
-            font-size: 2.2rem;
-            margin: 0;
-            font-weight: 300;
-            letter-spacing: -0.5px;
+
+        .header-grid {
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
-        
-        .profile {
-            margin-top: 20px;
+
+        .profile-image-container {
+            flex-shrink: 0;
         }
-        
-        .profile img {
+
+        .profile-image {
             width: 150px;
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #fff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 4px solid var(--accent-primary);
+            padding: 4px; 
+            background-color: var(--bg-primary); 
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
         }
-        
-        /* Tab Styles */
-        .tabs {
+
+        .header-content h1 {
+            font-family: var(--font-heading);
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .header-content .tagline {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+        .header-content .affiliation {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        .header-social-links {
+            display: flex;
+            gap: 15px;
+        }
+        .header-social-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.3rem; 
+            transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+        }
+        .header-social-links a:hover {
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+        .icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; }
+
+
+        /* Navigation Tabs */
+        .tabs-navigation {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .tabs-list {
             display: flex;
             justify-content: center;
-            margin: 30px 0;
-            border-bottom: 1px solid #ddd;
+            list-style: none;
         }
-        
-        .tab {
-            padding: 12px 24px;
-            font-size: 1rem;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        .tab.active {
-            color: #000;
+        .tab-item button {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
             font-weight: 600;
+            color: var(--text-secondary);
+            background-color: transparent;
+            border: none;
+            padding: 18px 25px;
+            cursor: pointer;
+            transition: color var(--transition-speed) ease, border-bottom-color var(--transition-speed) ease;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        
-        .tab.active::after {
+        .tab-item button .icon { font-size: 1.1rem; }
+        .tab-item button:hover {
+            color: var(--accent-primary);
+        }
+        .tab-item button.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            padding: 40px 0;
+            background-color: var(--bg-primary);
+        }
+        .tab-pane {
+            display: none;
+            animation: fadeInPane 0.5s ease-in-out;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        @keyframes fadeInPane {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--accent-primary);
+            display: inline-block; 
+            position: relative;
+        }
+        .section-title::after { 
             content: '';
             position: absolute;
-            bottom: -1px;
             left: 0;
-            width: 100%;
+            bottom: -7px; 
+            width: 50px;
             height: 3px;
-            background-color: #000;
+            background-color: var(--accent-secondary);
         }
-        
-        .tab:hover {
-            color: #000;
+
+
+        /* Generic Content Styles */
+        p { margin-bottom: 1.2rem; color: var(--text-primary); font-size: 1.05rem; }
+        ul { list-style-position: outside; padding-left: 20px; margin-bottom: 1.2rem; }
+        li { margin-bottom: 0.6rem; color: var(--text-primary); }
+        strong { font-weight: 600; color: var(--text-primary); }
+        a { color: var(--accent-primary); text-decoration: none; transition: color var(--transition-speed) ease; }
+        a:hover { color: var(--accent-secondary); text-decoration: underline; }
+
+        /* Card Design for Projects, Publications, etc. */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
         }
-        
-        /* Content Styles */
-        .content {
-            padding: 30px 0;
-            min-height: 500px;
+        .item-card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            display: flex;
+            flex-direction: column;
         }
-        
-        .tab-content {
-            display: none;
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
         }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        /* Research Item Styles */
-        .research-item {
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .research-item:last-child {
-            border-bottom: none;
-        }
-        
-        .research-title {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-        
-        .research-meta {
-            color: #666;
-            font-size: 0.9rem;
+        .item-card-header {
             margin-bottom: 15px;
         }
-        
-        /* CV Styles */
-        .cv-section {
-            margin-bottom: 30px;
+        .item-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
         }
-        
-        .cv-section h3 {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 8px;
-            font-weight: 500;
+        .item-card-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            display: block; 
         }
-        
+        .item-card-meta .category {
+            font-weight: 600;
+            color: var(--accent-primary);
+            background-color: rgba(0, 123, 255, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+        .item-card-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: auto; 
+            flex-grow: 1;
+        }
+        .item-card-links {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+        .item-card-links a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex; 
+            align-items: center;
+            gap: 6px;
+            margin-right: 15px;
+        }
+        .item-card-links a .icon { font-size: 1rem; }
+
+        /* CV Section Specifics */
+        .cv-section { margin-bottom: 35px; }
+        .cv-section-title {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
         .cv-item {
             margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative; 
         }
-        
-        .cv-item .period {
-            font-weight: 500;
+        .cv-item::before { 
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-primary);
+            border-radius: 50%;
+            border: 2px solid var(--bg-primary); 
         }
-        
-        /* Discussion Styles */
-        .discussion-item {
-            background: #fff;
-            padding: 20px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        
-        .discussion-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-        
-        .discussion-meta {
+        .cv-item-period {
             font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
         }
-        
-        /* Data and Code Styles */
-        .resource-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 20px;
-        }
-        
-        .resource-item {
-            background: #fff;
-            padding: 20px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .resource-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .resource-title {
+        .cv-item-title {
+            font-family: var(--font-heading);
             font-size: 1.1rem;
-            margin-bottom: 10px;
-            font-weight: 500;
+            font-weight: 600;
+            color: var(--text-primary);
         }
-        
-        .resource-type {
-            display: inline-block;
-            padding: 3px 8px;
-            background: #eee;
-            border-radius: 3px;
-            font-size: 0.75rem;
-            margin-bottom: 10px;
+        .cv-item-institution {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
         }
-        
-        /* Footer Styles */
-        footer {
-            text-align: center;
+        .cv-item-details {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding-left: 10px;
+        }
+        .cv-item-details li { font-size: 0.9rem; }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
             padding: 30px 0;
-            margin-top: 40px;
-            border-top: 1px solid #ddd;
-            color: #666;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+        }
+        .site-footer p {
+            margin-bottom: 5px;
             font-size: 0.9rem;
         }
-        
-        .social-links {
-            margin-top: 15px;
+        .site-footer a {
+            color: var(--text-secondary);
         }
-        
-        .social-links a {
-            margin: 0 10px;
-            color: #333;
-            text-decoration: none;
+        .site-footer a:hover {
+            color: var(--accent-primary);
         }
-        
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .header-grid { flex-direction: column; text-align: center; }
+            .profile-image { width: 130px; height: 130px; }
+            .header-content h1 { font-size: 2.2rem; }
+            .header-social-links { justify-content: center; }
+            .tabs-list { overflow-x: auto; justify-content: flex-start; } 
         }
-        
-        /* Responsive Styles */
+
         @media (max-width: 768px) {
-            .tabs {
-                flex-wrap: wrap;
-            }
-            
-            .tab {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-            
-            .resource-grid {
-                grid-template-columns: 1fr;
-            }
+            .container { padding: 0 16px; }
+            .section-title { font-size: 1.9rem; }
+            .item-card-title { font-size: 1.2rem; }
+            .card-grid { grid-template-columns: 1fr; } 
         }
+
+        @media (max-width: 576px) {
+            .profile-image { width: 100px; height: 100px; }
+            .header-content h1 { font-size: 1.9rem; }
+            .header-content .tagline { font-size: 1rem; }
+            .tab-item button { padding: 15px 15px; font-size: 0.85rem; }
+            .tab-item button .icon { display: none; } 
+        }
+
     </style>
 </head>
 <body>
-    <header>
-        <div class="profile">
-            <img src="/images/portraits3-2.jpg" alt="Hosung You Profile">
+
+    <header class="site-header">
+        <div class="container">
+            <div class="header-grid">
+                <div class="profile-image-container">
+                    <img src="/images/portraits3-2.jpg" alt="Hosung You Profile Photo" class="profile-image">
+                </div>
+                <div class="header-content">
+                    <h1>Hosung You</h1>
+                    <p class="tagline">Researcher exploring the future of Workforce Development & AI</p>
+                    <p class="affiliation">College of Education, Penn State University</p>
+                    <div class="header-social-links">
+                        <a href="https://www.linkedin.com/in/hosung-you" target="_blank" title="LinkedIn">LinkedIn</a>
+                        <a href="https://www.researchgate.net/profile/Hosung-You" target="_blank" title="ResearchGate">ResearchGate</a>
+                        <a href="https://github.com/HosungYou" target="_blank" title="GitHub">GitHub</a>
+                        <a href="https://orcid.org/0009-0008-3920-8243" target="_blank" title="ORCID">ORCID</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h1>Hosung You</h1>
-        <p>Workforce Education | Human Resource Development | Organization Development</p>
-        <p>College of Education, Penn State University</p>
     </header>
-    
-    <div class="tabs">
-        <button class="tab active" onclick="openTab('home')">Home</button>
-        <button class="tab" onclick="openTab('research')">Research</button>
-        <button class="tab" onclick="openTab('cv')">CV</button>
-        <button class="tab" onclick="openTab('discussion')">Discussion</button>
-        <button class="tab" onclick="openTab('data-codes')">Data & Codes</button>
-    </div>
-    
-    <div class="content">
-        <!-- Home Tab -->
-        <div id="home" class="tab-content active">
-            <h2>Welcome</h2>
-            <p>Hello, I am Hosung You, a doctoral candidate in Workforce Education and Development at Penn State University. My research focuses on human-AI collaboration, ethical leadership in digital contexts, and career development.</p>
 
-            <p>Currently, I am working on research projects related to <strong>agentic AI integration and ethical leadership development</strong> under the guidance of Dr. Hyung Joon Yoon. My research explores how transformational leaders can ethically integrate AI systems with human teams while preserving human agency and dignity.</p>
+    <nav class="tabs-navigation">
+        <div class="container">
+            <ul class="tabs-list">
+                <li class="tab-item"><button class="active" onclick="openTab(event, 'home')">Home</button></li>
+                <li class="tab-item"><button onclick="openTab(event, 'research')">Research & Projects</button></li>
+                <li class="tab-item"><button onclick="openTab(event, 'cv')">CV</button></li>
+                <li class="tab-item"><button onclick="openTab(event, 'discussion')">Discussion</button></li>
+                <li class="tab-item"><button onclick="openTab(event, 'data-codes')">Data & Codes</button></li>
+            </ul>
+        </div>
+    </nav>
 
-            <h3>Recent News</h3>
-            <ul>
-                <li>[2025.05] Presented posters on "Extension Master Gardeners and Watershed Stewards' motivation" and "Evaluation of Pilot STEM Career Symposium" at the AAAE National Conference.</li>
-                <li>[2025.04] Conducted workshop on "Harnessing artificial intelligence to enhance volunteer motivation and retention" at Penn State Extension.</li>
-                <li>[2025.03] Received the Dr. Kenneth E. Ruch Award in Education from the College of Education, Penn State University.</li>
-                <li>[2025.01] Appointed Treasurer of Workforce Education Graduate Student Association (WEGSA) for 2025.</li>
-                <li>[2024.02] Submitted preprint "Developer Skills and Learning Pathways" to Zenodo repository.</li>
-            </ul>
-            
-            <h3>Research Interests</h3>
-            <p>My research interests include:</p>
-            <ul>
-                <li>Human-AI Teaming and Ethical AI Integration</li>
-                <li>Career Development and Human Agency Theory</li>
-                <li>Organization Development in AI-Augmented Environments</li>
-                <li>Transformational Leadership</li>
-                <li>Structured Self-Reflection for Ethical Leadership</li>
-                <li>Quantitative Research Methods (Meta-analysis, SEM)</li>
-            </ul>
-            
-            <p>For collaboration inquiries or questions about my research, please contact me at <a href="mailto:hfy5138@psu.edu">hfy5138@psu.edu</a>.</p>
+    <main class="main-content">
+        <div class="container">
+            <section id="home" class="tab-pane active">
+                <h2 class="section-title">Welcome: At the Intersection of AI & Human Capability</h2>
+                <p>Hello, I am Hosung You, a doctoral candidate in Workforce Education and Development at Penn State University. My research is situated at the intersection of <strong>human-AI collaboration, ethical leadership in digital transformation, and innovative career development pathways</strong>.</p>
+                <p>Currently, under the guidance of Dr. Hyung Joon Yoon, I am immersed in projects exploring agentic AI integration and the cultivation of ethical leadership. My work aims to understand how organizations can harmoniously blend AI systems with human teams, ensuring technology augments human potential while upholding agency and dignity.</p>
+
+                <h3>Recent News</h3>
+                <ul>
+                    <li><strong>[2025.05]</strong> ATD 2025 워싱턴 DC 참가 — KMA 부스 투어 인사이트 <a href="https://docs.google.com/spreadsheets/d/1fQG5T8XTyTrBH5analKs2gY4HimhTOs6gjVYd16K_y4/edit?usp=sharing" target="_blank">ATD 부스 투어 인사이트 실시간 공유문서</a>.</li>
+                    <li><strong>[2025.05]</strong> Presented posters on "Extension Master Gardeners and Watershed Stewards' motivation" and "Evaluation of Pilot STEM Career Symposium" at the AAAE National Conference.</li>
+                    <li><strong>[2025.05]</strong> Submitted preprint "Developer Skills and Learning Pathways" to Zenodo repository.</li>
+                    <li><strong>[2025.04]</strong> Conducted workshop on "Harnessing artificial intelligence to enhance volunteer motivation and retention" at Penn State Extension.</li>
+                    <li><strong>[2025.03]</strong> Received the Dr. Kenneth E. Ruch Award in Education from the College of Education, Penn State University.</li>
+                </ul>
+                
+                <h3>Core Research Interests</h3>
+                <ul>
+                    <li>Human-AI Teaming & Ethical AI Integration Strategies</li>
+                    <li>Career Development Theories & Human Agency in the Age of AI</li>
+                    <li>Organizational Development in AI-Augmented Workplaces</li>
+                    <li>Transformational Leadership & Digital Ethics</li>
+                    <li>Structured Self-Reflection for Ethical Decision-Making</li>
+                    <li>Advanced Quantitative Methods (Meta-analysis, SEM, Explainable AI)</li>
+                </ul>
+                <p>Feel free to reach out for collaborations, discussions, or inquiries about my research: <a href="mailto:hfy5138@psu.edu">hfy5138@psu.edu</a>.</p>
+            </section>
+
+            <section id="research" class="tab-pane">
+                <h2 class="section-title">Research Publications & Projects</h2>
+                <p>A collection of my scholarly contributions and ongoing development projects.</p>
+                <div class="card-grid">
+                    <div class="item-card">
+                        <div class="item-card-header">
+                            <h3 class="item-card-title">Developer Skills and Learning Pathways: An Evidence-Based Framework for Strategic Human Resource Development</h3>
+                            <span class="item-card-meta"><span class="category">Preprint</span> You, H. S. (2025)</span>
+                        </div>
+                        <p class="item-card-description">This study presents a comprehensive, interpretable machine learning analysis of the 2024 Stack Overflow Developer Survey to investigate the market value of developer skills and the effectiveness of various learning pathways. Employing XGBoost models and SHAP value interpretation, we estimate skill premiums, value impacts, and learning method ROI across developer subgroups. Results reveal optimal learning approaches for different career stages and technical domains, providing a data-driven framework for strategic human resource development.</p>
+                        <div class="item-card-links">
+                            <a href="https://zenodo.org/records/15422222" target="_blank">View on Zenodo</a>
+                        </div>
+                    </div>
+
+                    <div class="item-card">
+                         <div class="item-card-header">
+                            <h3 class="item-card-title">GovFundingChatbot: AI-Powered Grant Discovery Tool</h3>
+                            <span class="item-card-meta"><span class="category">AI Project</span> Lead Developer (2024-Ongoing)</span>
+                        </div>
+                        <p class="item-card-description">An ongoing project developing an AI chatbot using Python, LangChain, Streamlit, and OpenAI APIs to assist users in finding relevant government funding opportunities. This tool aims to simplify and democratize the grant discovery process for researchers and organizations, enhancing access to critical resources.</p>
+                        <div class="item-card-links">
+                            <a href="https://github.com/HosungYou/govfundingchatbot" target="_blank">View on GitHub</a>
+                            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317612149214691328/" target="_blank">Discuss on LinkedIn</a>
+                        </div>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-card-header">
+                            <h3 class="item-card-title">A Relationship among Self-direction, Teaching Presence, Social Presence and Perceived Academic Achievement of Teachers in Distance Training Program</h3>
+                            <span class="item-card-meta"><span class="category">Journal Article</span> Kim, J. J., You, H. S. (2022)</span>
+                        </div>
+                        <p class="item-card-description">This research examines the relationship between self-direction, teaching presence, social presence, and perceived academic achievement in distance training programs for teachers. The study provides insights into the factors that influence effective distance education, especially in the context of teacher professional development during the COVID-19 pandemic.</p>
+                        <div class="item-card-links">
+                            <a href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11248994" target="_blank">View Paper (in Korean)</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cv" class="tab-pane">
+                <h2 class="section-title">Curriculum Vitae</h2>
+                <p>A summary of my academic and professional journey. For a detailed PDF version, please <a href="mailto:hfy5138@psu.edu?subject=CV Request">contact me</a>.</p>
+                
+                <div class="cv-section">
+                    <h3 class="cv-section-title">Education</h3>
+                    <div class="cv-item">
+                        <p class="cv-item-period">2022 - Present</p>
+                        <h4 class="cv-item-title">Ph.D. Candidate in Workforce Education and Development</h4>
+                        <p class="cv-item-institution">Penn State University, State College, PA</p>
+                        <ul class="cv-item-details">
+                            <li>Emphasis: Career Development, Human-AI Collaboration, Ethical Leadership</li>
+                            <li>Advisor: Dr. Hyung Joon Yoon</li>
+                        </ul>
+                    </div>
+                    <div class="cv-item">
+                        <p class="cv-item-period">2020 - 2022</p>
+                        <h4 class="cv-item-title">M.A. in Sociology of Education and Adult Continuing Education</h4>
+                        <p class="cv-item-institution">Korea University, Seoul, Republic of Korea</p>
+                        <ul class="cv-item-details">
+                            <li>Dissertation: "Transformational leadership, work engagement, and mediators: meta-analytic structural equation modeling"</li>
+                        </ul>
+                    </div>
+                    <div class="cv-item">
+                        <p class="cv-item-period">2012 - 2017</p>
+                        <h4 class="cv-item-title">B.A. in Education, History</h4>
+                        <p class="cv-item-institution">Chonnam University, Gwangju, Republic of Korea</p>
+                    </div>
+                </div>
+                
+                <div class="cv-section">
+                    <h3 class="cv-section-title">Professional Experience</h3>
+                    <div class="cv-item">
+                        <p class="cv-item-period">May 2023 - Present</p>
+                        <h4 class="cv-item-title">Administrative Graduate Assistant (Promotion Staff)</h4>
+                        <p class="cv-item-institution">Professional Personnel Development Center, Penn State University</p>
+                        <ul class="cv-item-details">
+                            <li>Rebuild and enhance the online presence of the PPDC.</li>
+                            <li>Responsible for ensuring digital platform reflects commitment to quality.</li>
+                        </ul>
+                    </div>
+                     <div class="cv-item">
+                        <p class="cv-item-period">September 2022 - May 2023</p>
+                        <h4 class="cv-item-title">Research Assistant</h4>
+                        <p class="cv-item-institution">Workforce Education and Development Program, Penn State University</p>
+                        <ul class="cv-item-details">
+                             <li>Assisted Dr. Yoon in research on human agency and hope.</li>
+                             <li>Contributed to developing the Human Agency-Based Individual Transformation (HABIT) model.</li>
+                        </ul>
+                    </div>
+                </div>   
+                <div class="cv-section">
+                    <h3 class="cv-section-title">Skills</h3>
+                     <div class="cv-item">
+                         <h4 class="cv-item-title">Technical & Research Skills</h4>
+                         <ul class="cv-item-details">
+                            <li><strong>Research Applications:</strong> SPSS, R, Mplus, AMOS, NVivo</li>
+                            <li><strong>AI & Programming:</strong> Python (NumPy, Pandas, Scikit-learn), SQL, LangChain, OpenAI API, Streamlit, FastAPI</li>
+                            <li><strong>Collaboration Tools:</strong> n8n, Zapier, LangGraph, GitHub</li>
+                            <li><strong>Languages:</strong> Korean (Native), English (Fluent)</li>
+                         </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="discussion" class="tab-pane">
+                <h2 class="section-title">Discussions & Insights</h2>
+                <p>Engage with my ongoing research thoughts, questions, and calls for collaboration.</p>
+                <div class="card-grid">
+                    <div class="item-card">
+                        <div class="item-card-header">
+                            <h3 class="item-card-title">Developer Skills and Learning Pathways: Explainable AI for Workforce Development</h3>
+                            <span class="item-card-meta"><span class="category">GitHub Discussions</span> Topic Initiated: May 15, 2025</span>
+                        </div>
+                        <p class="item-card-description">This discussion explores my recent paper analyzing developer skills and learning pathways using XGBoost and SHAP analysis. The research quantifies how technical skills, learning approaches, and career stages interact to determine market value. Do you have feedback on the methodology, questions about the data structure, or thoughts on applying these insights to workforce development? Join the discussion on GitHub to share your perspectives on this explainable AI approach to human resource development.</p>
+                        <div class="item-card-links">
+                            <a href="https://github.com/HosungYou/StackOverFlow_HRD_2024_Research/discussions/1" target="_blank">Join the Conversation on GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="data-codes" class="tab-pane">
+                <h2 class="section-title">Datasets & Code</h2>
+                <p>Open resources from my research, available for academic and non-commercial use. Please cite appropriately.</p>
+                <div class="card-grid">
+                    <div class="item-card">
+                        <div class="item-card-header">
+                             <span class="item-card-meta"><span class="category">Analysis Framework</span> PDF, Excel | Updated: 2025-05-14</span>
+                            <h3 class="item-card-title">Learning Pathway Matrix</h3>
+                        </div>
+                        <p class="item-card-description">A framework for mapping optimal learning resources and approaches based on technical domain and career stage, derived from the "Developer Skills" research. Provides strategic guidance for workforce development.</p>
+                        <div class="item-card-links">
+                            <a href="https://zenodo.org/records/15422222" target="_blank">Access on Zenodo</a>
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-card-header">
+                            <span class="item-card-meta"><span class="category">Python Code</span> Tech: Python, Streamlit, LangChain | Updated: 2024</span>
+                            <h3 class="item-card-title">GovFundingChatbot Source Code</h3>
+                        </div>
+                        <p class="item-card-description">Source code for the GovFundingChatbot, an AI-driven assistant for navigating and identifying government grants. Built with Python, Streamlit, and LangChain.</p>
+                        <div class="item-card-links">
+                            <a href="https://github.com/HosungYou/govfundingchatbot" target="_blank">Access Code on GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-        
-        <!-- Research Tab -->
-        <div id="research" class="tab-content">
-            <h2>Research Areas</h2>
-            <p>My research primarily focuses on the following areas:</p>
-            <ul>
-                <li>Human Resource Development and Organizational Development</li>
-                <li>Career Development and Human Agency</li>
-                <li>Transformational Leadership and Work Engagement</li>
-                <li>Human-AI Collaboration and Ethical AI Integration</li>
-            </ul>
-            
-            <h2>Publications and Presentations</h2>
-            
-            <div class="research-item">
-                <h3 class="research-title">Developer Skills and Learning Pathways: An Evidence-Based Framework for Strategic Human Resource Development</h3>
-                <div class="research-meta">
-                    You, H. S.<br>
-                    Preprint submitted, 2025
-                </div>
-                <p>This study presents a comprehensive, interpretable machine learning analysis of the 2024 Stack Overflow Developer Survey to investigate the market value of developer skills and the effectiveness of various learning pathways. Employing XGBoost models and SHAP value interpretation, we estimate skill premiums, value impacts, and learning method ROI across developer subgroups. Results reveal optimal learning approaches for different career stages and technical domains, providing a data-driven framework for strategic human resource development.</p>
-                <p><a href="https://zenodo.org/records/15422222" target="_blank">Preprint (Zenodo)</a></p>
-            </div>
-            
-            <div class="research-item">
-                <h3 class="research-title">Ai unleashed: Navigating the pathways to adoption and transformation in business landscapes</h3>
-                <div class="research-meta">
-                    You, H. S.<br>
-                    Academy of Human Resource Development Conference (AHRD), Arlington, Virginia, 2024
-                </div>
-                <p>This presentation explored the pathways for AI adoption in organizational settings and analyzed the transformative impacts on business structures and workforce development strategies.</p>
-                <p><a href="#">Presentation Materials (Available Upon Request)</a></p>
-            </div>
-            
-            <div class="research-item">
-                <h3 class="research-title">Towards Agentic HRD: Facilitating a Dialogue for Research Collaboration</h3>
-                <div class="research-meta">
-                    Yoon, H. J., Park, J., Chang, Y.L., Al Balushi, I., Manar, M, Rogers, A. M., You, H. S.<br>
-                    Academy of Human Resource Development (AHRD), Minneapolis, Minnesota, 2023
-                </div>
-                <p>A collaborative session that established frameworks for research partnerships in agentic approaches to Human Resource Development, exploring new paradigms for workforce education.</p>
-                <p><a href="#">Session Materials (Available Upon Request)</a></p>
-            </div>
-            
-            <div class="research-item">
-                <h3 class="research-title">Extension Master Gardeners and Watershed Stewards' motivation amidst COVID-19</h3>
-                <div class="research-meta">
-                    Windon, S., Buchko, O., You, H., & Adhikari, A.<br>
-                    National Conference of the American Association for Agricultural Education (AAAE), Lubbock, TX, 2025
-                </div>
-                <p>This poster presentation examined motivational factors affecting Extension volunteers during the pandemic, with implications for program design and retention strategies.</p>
-                <p><a href="#">Poster (Available Upon Request)</a></p>
-            </div>
-            
-            <div class="research-item">
-                <h3 class="research-title">Evaluation of Pilot STEM Career Symposium for Minority-Serving Institutions' youth</h3>
-                <div class="research-meta">
-                    Windon, S., You, H., Grozinger, C., Boyle, N., & Adhikari, A.<br>
-                    National Conference of the American Association for Agricultural Education (AAAE), Lubbock, TX, 2025
-                </div>
-                <p>This research evaluated outcomes of a pilot STEM career symposium designed for youth from Minority-Serving Institutions, assessing program effectiveness and educational impact.</p>
-                <p><a href="#">Poster (Available Upon Request)</a></p>
-            </div>
-            
-            <div class="research-item">
-                <h3 class="research-title">Harnessing artificial intelligence to enhance volunteer motivation and retention</h3>
-                <div class="research-meta">
-                    You, H., & Windon, S.<br>
-                    Workshop at Penn State Extension, Lancaster, PA, 2025
-                </div>
-                <p>A hands-on workshop demonstrating practical applications of AI tools to improve volunteer engagement, recruitment, and retention strategies for extension programs.</p>
-                <p><a href="#">Workshop Materials (Available Upon Request)</a></p>
-            </div>
-            
-            <div class="research-item">
-                <h3 class="research-title">A Relationship among Self-direction, Teaching Presence, Social Presence and Perceived Academic Achievement of Teachers in Distance Training Program</h3>
-                <div class="research-meta">
-                    Kim, J. J., You, H. S.<br>
-                    Korean Education Inquiry, 35(3), 111-132, 2022
-                </div>
-                <p>This research examines the relationship between self-direction, teaching presence, social presence, and perceived academic achievement in distance training programs for teachers. The study provides insights into the factors that influence effective distance education, especially in the context of teacher professional development during the COVID-19 pandemic.</p>
-                <p><a href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11248994" target="_blank">Paper (in Korean)</a></p>
-            </div>
-        </div>
-        
-        <!-- CV Tab -->
-        <div id="cv" class="tab-content">
-            <h2>Curriculum Vitae</h2>
-            
-            <div class="cv-section">
-                <h3>Education</h3>
-                <div class="cv-item">
-                    <div class="period">2022 - Present</div>
-                    <div class="description">
-                        <strong>Ph.D. Student in Workforce Education and Development</strong><br>
-                        Penn State University, State College, Pennsylvania<br>
-                        Emphasis: Career Development of Veterans<br>
-                        Personal Focus: Career Development<br>
-                        Advisor: Dr. Hyung Joon Yoon
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">2020 - 2022</div>
-                    <div class="description">
-                        <strong>M.A. in Sociology of Education and Adult Continuing Education</strong><br>
-                        Korea University, Seoul, Republic of Korea<br>
-                        Advisor: Dr. Dae-Yean Cho<br>
-                        Dissertation: Transformational leadership, work engagement, and mediators: meta-analytic structural equation modeling
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">2012 - 2017</div>
-                    <div class="description">
-                        <strong>B.A. in Education, History</strong><br>
-                        Chonnam University, Gwangju, Republic of Korea
-                    </div>
-                </div>
-            </div>
-            
-            <div class="cv-section">
-                <h3>Professional Experience</h3>
-                <div class="cv-item">
-                    <div class="period">May 2023 - Present</div>
-                    <div class="description">
-                        <strong>Administrative Graduate Assistant (Promotion Staff)</strong><br>
-                        Professional Personnel Development Center, Penn State University<br>
-                        • Rebuild and enhance the online presence of the PPDC<br>
-                        • Responsible for ensuring digital platform reflects commitment to quality<br>
-                        • Collaborate with the team to strategize and implement promotional activities<br>
-                        • Draft and publish web content, blog posts, and articles
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">September 2022 - May 2023</div>
-                    <div class="description">
-                        <strong>Research Assistant</strong><br>
-                        Workforce Education and Development Program, Penn State University<br>
-                        • Assisted Dr. Yoon in research on human agency and hope<br>
-                        • Contributed to developing the Human Agency-Based Individual Transformation (HABIT) model<br>
-                        • Conducted literature reviews and synthesized findings<br>
-                        • Managed and analyzed data using statistical software (SPSS, R, Mplus)
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">February 2022 - December 2022</div>
-                    <div class="description">
-                        <strong>Academic Secretary</strong><br>
-                        The Anam Society for the Study of Education, Seoul, Republic of Korea<br>
-                        • Recruited presenters and collected manuscripts for academic conferences<br>
-                        • Established timetables for conference operations<br>
-                        • Organized conference materials and managed logistics
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">December 2020 - February 2022</div>
-                    <div class="description">
-                        <strong>General Secretary</strong><br>
-                        Teacher Training Center, Korea University, Seoul, Republic of Korea<br>
-                        • Designed, scheduled, and managed in-service teacher training programs<br>
-                        • Established online distance training systems in response to COVID-19<br>
-                        • Managed a staff of 31 training course secretaries and assistants
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">May 2020 - September 2020</div>
-                    <div class="description">
-                        <strong>Project Assistant</strong><br>
-                        Ministry of Employment and Labor, Employment Policy Division, Sejong, Republic of Korea<br>
-                        • Conducted administrative assistance and budget execution for policy research projects<br>
-                        • Coded and analyzed policy studies to understand trends in domestic employment policies<br>
-                        • Documented focus group interviews and contributed to research report preparation<br>
-                        • Secured a grant for $33,077 from the Korean Ministry of Employment and Labor
-                    </div>
-                </div>
-            </div>
-            
-            <div class="cv-section">
-                <h3>Awards and Grants</h3>
-                <div class="cv-item">
-                    <div class="period">2025</div>
-                    <div class="description">
-                        <strong>Dr. Kenneth E. Ruch Award in Education</strong><br>
-                        College of Education, The Pennsylvania State University<br>
-                        Institutional award recognizing outstanding academic excellence in the Workforce Education program
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">2022 - 2023</div>
-                    <div class="description">
-                        <strong>David and Virginia Shirley Memorial Graduate Scholarship</strong><br>
-                        Office of Graduate Fellowships and Awards, The Pennsylvania State University<br>
-                        Competitive merit-based scholarship supporting graduate study and research in Workforce Education and Development
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">2020 - 2021</div>
-                    <div class="description">
-                        <strong>BK21 Graduate Student Scholarship</strong><br>
-                        Graduate School, Korea University<br>
-                        Awarded for enhancing capabilities in core academic fields and fostering academic successors
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">2020</div>
-                    <div class="description">
-                        <strong>Research Assistant Scholarship</strong><br>
-                        Graduate School, Korea University
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">2018</div>
-                    <div class="description">
-                        <strong>Citation</strong><br>
-                        Presented by Corps Commander for flawless border operation and mental strength education
-                    </div>
-                </div>
-            </div>
-            
-            <div class="cv-section">
-                <h3>Service and Leadership</h3>
-                <div class="cv-item">
-                    <div class="period">2025 - Present</div>
-                    <div class="description">
-                        <strong>Treasurer, Workforce Education Graduate Student Association (WEGSA)</strong><br>
-                        Penn State University<br>
-                        Managed financial operations, including budgeting and accounting for association events and initiatives
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">2024 - 2025</div>
-                    <div class="description">
-                        <strong>Vice President (Elect), Workforce Education Graduate Student Association (WEGSA)</strong><br>
-                        Penn State University<br>
-                        Scheduled to assume strategic leadership role supporting the association's mission
-                    </div>
-                </div>
-                
-                <div class="cv-item">
-                    <div class="period">2023 - 2024</div>
-                    <div class="description">
-                        <strong>Treasurer, Workforce Education Graduate Student Association (WEGSA)</strong><br>
-                        Penn State University<br>
-                        Managed financial operations for association events and initiatives
-                    </div>
-                </div>
-            </div>
-            
-            <div class="cv-section">
-                <h3>Skills</h3>
-                <div class="cv-item">
-                    <div class="description">
-                        <strong>Research Applications:</strong> SPSS, R, Mplus, AMOS<br>
-                        <strong>Business Applications:</strong> Microsoft Office Suite, Automation & Collaboration Tools (n8n, Zapier, LangGraph)<br>
-                        <strong>Programming & AI Development:</strong> Python, SQL, LangChain, OpenAI APIs, Streamlit, FastAPI<br>
-                        <strong>Languages:</strong> Korean (Native), English (Fluent)
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Discussion Tab -->
-        <div id="discussion" class="tab-content">
-            <h2>Research Discussions</h2>
-            <p>Discussion topics related to current research interests. Comments and feedback are welcome.</p>
-            
-            <div class="discussion-item">
-                <h3 class="discussion-title">Developer Skills and Learning Pathways: Explainable AI for Workforce Development</h3>
-                <div class="discussion-meta">
-                    Posted: May 15, 2025 | Comments: 0
-                </div>
-                <p>This discussion explores my recent paper analyzing developer skills and learning pathways using XGBoost and SHAP analysis. The research quantifies how technical skills, learning approaches, and career stages interact to determine market value. Do you have feedback on the methodology, questions about the data structure, or thoughts on applying these insights to workforce development? Join the discussion on GitHub to share your perspectives on this explainable AI approach to human resource development.</p>
-                <a href="https://github.com/HosungYou/StackOverFlow_HRD_2024_Research/discussions/1" target="_blank">Join the Conversation</a>
-            </div>
-            
-            <div class="discussion-item">
-                <h3 class="discussion-title">The Future of Work: Ethical Integration of Agentic AI in Organizations</h3>
-                <div class="discussion-meta">
-                    Posted: May 15, 2025 | Comments: 0
-                </div>
-                <p>As AI systems become increasingly autonomous, how should organizations prepare for the integration of "AI colleagues"? This discussion explores the ethical dimensions of human-AI teaming, focusing on how Branson's Structured Self-Reflection Model can help leaders develop the ethical acumen needed to navigate complex questions of trust, accountability, and human agency in AI-augmented workplaces.</p>
-                <a href="https://github.com/HosungYou/hosungyou.github.io/discussions/new?category=ideas" target="_blank">Join the Conversation</a>
-            </div>
-            
-            <div class="discussion-item">
-                <h3 class="discussion-title">Phenomenological Experiences of AI Adoption: Navigating Employee Anxiety and Adaptation</h3>
-                <div class="discussion-meta">
-                    Posted: May 1, 2025 | Comments: 0
-                </div>
-                <p>How do employees subjectively experience the integration of AI systems into their work? This discussion examines the emotional responses, resistance patterns, and adaptation strategies that emerge when organizations adopt increasingly sophisticated AI tools. I'm particularly interested in how workforce education professionals can better support employees through this transition while maintaining psychological safety and well-being.</p>
-                <a href="https://github.com/HosungYou/hosungyou.github.io/discussions/new?category=ideas" target="_blank">Join the Conversation</a>
-            </div>
-            
-            <div class="discussion-item">
-                <h3 class="discussion-title">Developing Competency Models for Human-AI Collaboration</h3>
-                <div class="discussion-meta">
-                    Posted: April 18, 2025 | Comments: 0
-                </div>
-                <p>What competencies are essential for effective collaboration with AI systems? Traditional competency models need to evolve to address the unique challenges of working alongside intelligent technologies. This discussion explores frameworks for identifying, developing, and assessing the skills needed in an AI-augmented workplace, with special attention to balancing technical proficiency with distinctly human capabilities like ethical judgment and creativity.</p>
-                <a href="https://github.com/HosungYou/hosungyou.github.io/discussions/new?category=ideas" target="_blank">Join the Conversation</a>
-            </div>
-            
-            <div class="discussion-item">
-                <h3 class="discussion-title">Start a New Discussion</h3>
-                <p>Would you like to start a discussion on a new research topic or idea? I welcome conversations on AI ethics, workforce education, career development, and organizational leadership.</p>
-                <a href="https://github.com/HosungYou/hosungyou.github.io/discussions/new?category=ideas" target="_blank">Propose a New Discussion Topic</a>
-            </div>
-        </div>
-        
-        <!-- Data and Codes Tab -->
-        <div id="data-codes" class="tab-content">
-            <h2>Datasets and Code</h2>
-            <p>Sharing research resources related to current and past projects. These resources are available for academic and non-commercial purposes. Please provide appropriate citations when using.</p>
-            
-            <div class="resource-grid">
-                <div class="resource-item">
-                    <span class="resource-type">Dataset</span>
-                    <h3 class="resource-title">Stack Overflow Developer Survey Dataset</h3>
-                    <p>Dataset from the 2024 Stack Overflow Developer Survey used to analyze developer skills, learning pathways, and career progression across different roles and experience levels.</p>
-                    <p><strong>Format:</strong> CSV</p>
-                    <p><strong>Updated:</strong> 2025-05-14</p>
-                    <a href="https://zenodo.org/records/15422222" target="_blank">Access via Zenodo</a>
-                </div>
-                
-                <div class="resource-item">
-                    <span class="resource-type">Code</span>
-                    <h3 class="resource-title">XGBoost and SHAP Analysis Code</h3>
-                    <p>Python code implementing XGBoost models and SHAP value interpretation to analyze developer skill premiums and learning pathway effectiveness across career stages.</p>
-                    <p><strong>Language:</strong> Python</p>
-                    <p><strong>Updated:</strong> 2025-05-14</p>
-                    <a href="https://zenodo.org/records/15422222" target="_blank">Access via Zenodo</a>
-                </div>
-                
-                <div class="resource-item">
-                    <span class="resource-type">Analysis</span>
-                    <h3 class="resource-title">Learning Pathway Matrix</h3>
-                    <p>Framework for mapping optimal learning resources and approaches based on technical domain and career stage, providing strategic guidance for workforce development.</p>
-                    <p><strong>Format:</strong> PDF, Excel</p>
-                    <p><strong>Updated:</strong> 2025-05-14</p>
-                    <a href="https://zenodo.org/records/15422222" target="_blank">Access via Zenodo</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <footer>
-        <p>© 2025 Hosung You | College of Education, Penn State University</p>
-        <p>Contact: <a href="mailto:hfy5138@psu.edu">hfy5138@psu.edu</a> | Keller Building, University Park, PA 16802</p>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/hosung-you" target="_blank">LinkedIn</a> |
-            <a href="https://www.researchgate.net/profile/Hosung-You" target="_blank">ResearchGate</a> |
-            <a href="https://github.com/HosungYou" target="_blank">GitHub</a> |
-            <a href="https://orcid.org/0000-0000-0000-0000" target="_blank">ORCID</a>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© <script>document.write(new Date().getFullYear())</script> Hosung You | AI & Workforce Development Researcher</p>
+            <p>College of Education, Penn State University</p>
+            <p>Contact: <a href="mailto:hfy5138@psu.edu">hfy5138@psu.edu</a></p>
         </div>
     </footer>
 
-    <script>
-        function openTab(tabName) {
-            // Hide all tab contents
-            var tabContents = document.getElementsByClassName("tab-content");
-            for (var i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove("active");
-            }
-            
-            // Deactivate all tab buttons
-            var tabs = document.getElementsByClassName("tab");
-            for (var i = 0; i < tabs.length; i++) {
-                tabs[i].classList.remove("active");
-            }
-            
-            // Show selected tab content
-            document.getElementById(tabName).classList.add("active");
-            
-            // Activate selected tab button
-            event.currentTarget.classList.add("active");
+<script>
+    function openTab(evt, tabName) {
+        var i, tabPane, tabButtons;
+        tabPane = document.getElementsByClassName("tab-pane");
+        for (i = 0; i < tabPane.length; i++) {
+            tabPane[i].classList.remove("active");
         }
-    </script>
+        tabButtons = document.querySelectorAll(".tabs-list .tab-item button");
+        for (i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
+
 </body>
 </html>
