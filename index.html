@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hosung You - Future of Workforce Development & AI</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #FFFFFF; /* Clean white background */
             --bg-secondary: #F8F9FA; /* Very light grey for subtle contrast */
-            --bg-accent-subtle: rgba(66, 133, 244, 0.05); /* Subtle Google Blue for backgrounds */
+            --bg-accent-subtle: rgba(26, 115, 232, 0.05); /* Subtle Google Blue for backgrounds */
             --text-primary: #1F1F1F; /* Darker grey for main text (Google/IBM like) */
             --text-secondary: #5F6368; /* Medium grey for less emphasis (Google/IBM like) */
             --accent-primary: #1A73E8; /* Google Blue */
-            --accent-secondary: #4285F4; /* Lighter Google Blue */
+            --accent-secondary: #3685EC; /* Lighter Google Blue */
             --border-color: #DADCE0; /* Google/IBM style border */
             --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             --card-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
@@ -21,6 +25,29 @@
             --font-body: 'Inter', 'Roboto', 'Arial', sans-serif;
             --transition-speed: 0.25s;
             --nav-tab-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Theme adjustments for Materialize Components */
+        .tabs .indicator {
+            background-color: var(--accent-primary);
+        }
+        .tabs .tab a.active {
+            color: var(--accent-primary);
+        }
+        .tabs .tab a:hover, .tabs .tab a:focus {
+            color: var(--accent-secondary); /* Lighter blue for hover/focus on tab links */
+        }
+        .tabs .tab a {
+            color: var(--text-secondary); /* Default color for non-active tab links */
+        }
+
+        .sidenav li.active,
+        .sidenav li > a.active {
+            background-color: var(--bg-accent-subtle); /* Subtle blue background for active sidenav item */
+        }
+        .sidenav li > a.active i.material-icons, /* If icons are used in Sidenav */
+        .sidenav li > a.active {
+            color: var(--accent-primary); /* Accent color for text/icons in active Sidenav item */
         }
 
         /* Reset and Base Styles */
@@ -61,17 +88,23 @@
 
         .profile-image-container {
             flex-shrink: 0;
+            width: 180px; /* Control size via container */
+            height: 180px; /* Control size via container */
+            margin: 0 auto; /* Center if needed within header-grid */
         }
 
         .profile-image {
-            width: 180px; /* Increased size */
-            height: 180px; /* Increased size */
+            /* width and height removed - handled by responsive-img and container */
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid var(--accent-primary);
             padding: 5px; 
             background-color: var(--bg-primary); 
             box-shadow: 0 0 25px rgba(26, 115, 232, 0.25);
+            /* Ensure it fills the container if container is larger */
+            display: block; /* To remove any extra space if img is inline by default */
+            width: 100%; /* Make image fill container width */
+            height: 100%; /* Make image fill container height */
         }
 
         .header-content h1 {
@@ -80,14 +113,6 @@
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 10px;
-        }
-        .header-content .tagline {
-            font-size: 1.25rem; /* Slightly larger */
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            font-weight: 400;
-            font-family: var(--font-heading); /* Using heading font for more impact */
-            line-height: 1.5;
         }
         .header-content .affiliation {
             font-size: 1.05rem; /* Slightly larger */
@@ -351,9 +376,12 @@
         /* Responsive Design */
         @media (max-width: 992px) {
             .header-grid { flex-direction: column; text-align: center; gap: 25px; }
-            .profile-image { width: 160px; height: 160px; }
+            .profile-image-container {
+                width: 160px;
+                height: 160px;
+            }
             .header-content h1 { font-size: 2.4rem; }
-            .header-content .tagline { font-size: 1.15rem; }
+            .header-content .affiliation { font-size: 1.15rem; }
             .tabs-list { flex-wrap: wrap; justify-content: space-around;} /* Allow tabs to wrap */
             .tab-item button { padding: 15px 20px; font-size: 0.9rem; }
             .section-title { font-size: 2rem; }
@@ -366,9 +394,12 @@
             body { font-size: 15px; }
             .container { padding: 0 15px; }
             .site-header { padding: 30px 0; }
-            .profile-image { width: 140px; height: 140px; }
+            .profile-image-container {
+                width: 140px;
+                height: 140px;
+            }
             .header-content h1 { font-size: 2rem; }
-            .header-content .tagline { font-size: 1.05rem; }
+            .header-content .affiliation { font-size: 1.05rem; }
             .header-social-links { justify-content: center; }
             .social-link-item { padding: 7px 14px; font-size: 0.85rem; }
             .tabs-list { gap: 5px; } /* Reduce gap for wrapped tabs */
@@ -383,9 +414,16 @@
         }
 
         @media (max-width: 480px) {
-            .profile-image { width: 120px; height: 120px; border-width: 4px; padding: 4px; }
+            .profile-image-container {
+                width: 120px;
+                height: 120px;
+            }
+            .profile-image {
+                border-width: 4px;
+                padding: 4px;
+            }
             .header-content h1 { font-size: 1.7rem; }
-            .header-content .tagline { font-size: 0.95rem; }
+            .header-content .affiliation { font-size: 0.95rem; }
             .header-social-links { gap: 8px; }
             .social-link-item { padding: 6px 10px; font-size: 0.8rem; }
             .tab-item button { padding: 10px 10px; font-size: 0.75rem; }
@@ -393,67 +431,81 @@
             .section-title { font-size: 1.6rem; }
             .item-card-title { font-size: 1.1rem; }
         }
+        
+        /* Card action links color */
+        .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+            color: var(--accent-primary);
+            text-transform: none; /* Ensure mixed case from HTML is respected */
+        }
+        .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):hover {
+            color: var(--accent-secondary);
+        }
     </style>
 </head>
 <body>
+    <ul id="slide-out" class="sidenav">
+        <li><a class="waves-effect" href="#home">Home</a></li>
+        <li><a class="waves-effect" href="#research">Research & Projects</a></li>
+        <li><a class="waves-effect" href="#cv">CV</a></li>
+        <li><a class="waves-effect" href="#discussion">Discussion</a></li>
+        <li><a class="waves-effect" href="#data-codes">Data & Codes</a></li>
+    </ul>
 
     <header class="site-header">
         <div class="container">
+            <a href="#" data-target="slide-out" class="sidenav-trigger hide-on-med-and-up"><i class="material-icons">menu</i></a>
             <div class="header-grid">
                 <div class="profile-image-container">
-                    <img src="./assets/portraits3-2.jpg" alt="Hosung You profile image" class="profile-image">
+                    <img src="./assets/portraits3-2.jpg" alt="Hosung You profile image" class="profile-image responsive-img">
                 </div>
                 <div class="header-content">
                     <h1>Hosung You</h1>
-                    <p class="tagline">Hosung You: Bridging AI Innovation with Human Expertise</p>
+                    
                     <p class="affiliation">Ph.D. Student, Workforce Education & Development<br>Penn State University</p>
                     <div class="header-social-links">
-                        <a href="https://www.linkedin.com/in/newhosung/" target="_blank" title="LinkedIn" class="social-link-item">LinkedIn</a>
-                        <a href="https://www.researchgate.net/profile/Hosung-You" target="_blank" title="ResearchGate" class="social-link-item">ResearchGate</a>
-                        <a href="https://github.com/HosungYou" target="_blank" title="GitHub" class="social-link-item">GitHub</a>
-                        <a href="https://orcid.org/0009-0008-3920-8243" target="_blank" title="ORCID" class="social-link-item">ORCID</a>
+                        <a href="https://www.linkedin.com/in/newhosung/" target="_blank" title="LinkedIn" class="waves-effect waves-light btn blue darken-1">LinkedIn</a>
+                        <a href="https://www.researchgate.net/profile/Hosung-You" target="_blank" title="ResearchGate" class="waves-effect waves-light btn blue darken-1">ResearchGate</a>
+                        <a href="https://github.com/HosungYou" target="_blank" title="GitHub" class="waves-effect waves-light btn blue darken-1">GitHub</a>
+                        <a href="https://orcid.org/0009-0008-3920-8243" target="_blank" title="ORCID" class="waves-effect waves-light btn blue darken-1">ORCID</a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <nav class="tabs-navigation">
-        <div class="container">
-            <ul class="tabs-list">
-                <li class="tab-item"><button class="active" onclick="openTab(event, 'home')">Home</button></li>
-                <li class="tab-item"><button onclick="openTab(event, 'research')">Research & Projects</button></li>
-                <li class="tab-item"><button onclick="openTab(event, 'cv')">CV</button></li>
-                <li class="tab-item"><button onclick="openTab(event, 'discussion')">Discussion</button></li>
-                <li class="tab-item"><button onclick="openTab(event, 'data-codes')">Data & Codes</button></li>
-            </ul>
-        </div>
-    </nav>
+    <div class="nav-wrapper container">
+        <ul id="siteTabs" class="tabs tabs-fixed-width z-depth-1 hide-on-small-only">
+            <li class="tab"><a class="active" href="#home">Home</a></li>
+            <li class="tab"><a href="#research">Research & Projects</a></li>
+            <li class="tab"><a href="#cv">CV</a></li>
+            <li class="tab"><a href="#discussion">Discussion</a></li>
+            <li class="tab"><a href="#data-codes">Data & Codes</a></li>
+        </ul>
+    </div>
 
     <main class="main-content">
         <div class="container">
-            <section id="home" class="tab-pane active">
-                <h2 class="section-title">Welcome: At the Intersection of AI & Human Capability</h2>
-                <p>Hello, I am Hosung You, a doctoral student in Workforce Education and Development at Penn State University. My research is situated at the intersection of <strong>human-AI collaboration, ethical leadership in digital transformation, and innovative career development pathways</strong>.</p>
-                <p>Currently, under the guidance of Dr. Hyung Joon Yoon, I am immersed in projects exploring agentic AI integration and the cultivation of ethical leadership. My work aims to understand how organizations can harmoniously blend AI systems with human teams, ensuring technology augments human potential while upholding agency and dignity.</p>
+            <section id="home" class="tab-pane">
+                <h2 class="section-title">AI & Human Potential</h2>
+                <p>Bridging AI innovation with human expertise. I'm Hosung You, a doctoral student at Penn State University, specializing in Workforce Education and Development. My research focuses on the synergy of <strong>human-AI collaboration, ethical leadership in digital transformation, and innovative career pathways</strong>. I explore how AI and human teams can work together effectively and ethically, aiming to enhance organizational harmony and uphold human agency.</p>
 
-                <h3>Recent News</h3>
-                <ul>
-                    <li><strong>[2025.05]</strong> ATD 2025 워싱턴 DC 참가 — KMA 부스 투어 인사이트 <a href="https://docs.google.com/spreadsheets/d/1fQG5T8XTyTrBH5analKs2gY4HimhTOs6gjVYd16K_y4/edit?usp=sharing" target="_blank">ATD 부스 투어 인사이트 실시간 공유문서</a>.</li>
-                    <li><strong>[2025.05]</strong> Presented posters on "Extension Master Gardeners and Watershed Stewards' motivation" and "Evaluation of Pilot STEM Career Symposium" at the AAAE National Conference.</li>
-                    <li><strong>[2025.05]</strong> Submitted preprint "Developer Skills and Learning Pathways" to Zenodo repository.</li>
-                    <li><strong>[2025.04]</strong> Conducted workshop on "Harnessing artificial intelligence to enhance volunteer motivation and retention" at Penn State Extension.</li>
-                    <li><strong>[2025.03]</strong> Received the Dr. Kenneth E. Ruch Award in Education from the College of Education, Penn State University.</li>
+                <ul class="collection with-header">
+                    <li class="collection-header"><h4>Recent News</h4></li>
+                    <li class="collection-item"><strong>[2025.05]</strong> ATD 2025 워싱턴 DC 참가 — KMA 부스 투어 인사이트 <a href="https://docs.google.com/spreadsheets/d/1fQG5T8XTyTrBH5analKs2gY4HimhTOs6gjVYd16K_y4/edit?usp=sharing" target="_blank">ATD 부스 투어 인사이트 실시간 공유문서</a>.</li>
+                    <li class="collection-item"><strong>[2025.05]</strong> Presented posters on "Extension Master Gardeners and Watershed Stewards' motivation" and "Evaluation of Pilot STEM Career Symposium" at the AAAE National Conference.</li>
+                    <li class="collection-item"><strong>[2025.05]</strong> Submitted preprint "Developer Skills and Learning Pathways" to Zenodo repository.</li>
+                    <li class="collection-item"><strong>[2025.04]</strong> Conducted workshop on "Harnessing artificial intelligence to enhance volunteer motivation and retention" at Penn State Extension.</li>
+                    <li class="collection-item"><strong>[2025.03]</strong> Received the Dr. Kenneth E. Ruch Award in Education from the College of Education, Penn State University.</li>
                 </ul>
                 
-                <h3>Core Research Interests</h3>
-                <ul>
-                    <li>Human-AI Teaming & Ethical AI Integration Strategies</li>
-                    <li>Career Development Theories & Human Agency in the Age of AI</li>
-                    <li>Organizational Development in AI-Augmented Workplaces</li>
-                    <li>Transformational Leadership & Digital Ethics</li>
-                    <li>Structured Self-Reflection for Ethical Decision-Making</li>
-                    <li>Advanced Quantitative Methods (Meta-analysis, SEM, Explainable AI)</li>
+                <ul class="collection with-header">
+                    <li class="collection-header"><h4>Core Research Interests</h4></li>
+                    <li class="collection-item">Human-AI Teaming & Ethical AI Integration Strategies</li>
+                    <li class="collection-item">Career Development Theories & Human Agency in the Age of AI</li>
+                    <li class="collection-item">Organizational Development in AI-Augmented Workplaces</li>
+                    <li class="collection-item">Transformational Leadership & Digital Ethics</li>
+                    <li class="collection-item">Structured Self-Reflection for Ethical Decision-Making</li>
+                    <li class="collection-item">Advanced Quantitative Methods (Meta-analysis, SEM, Explainable AI)</li>
                 </ul>
                 <p>Feel free to reach out for collaborations, discussions, or inquiries about my research: <a href="mailto:hfy5138@psu.edu">hfy5138@psu.edu</a>.</p>
             </section>
@@ -461,38 +513,56 @@
             <section id="research" class="tab-pane">
                 <h2 class="section-title">Research Publications & Projects</h2>
                 <p>A collection of my scholarly contributions and ongoing development projects.</p>
-                <div class="card-grid">
-                    <div class="item-card">
-                        <div class="item-card-header">
-                            <h3 class="item-card-title">Developer Skills and Learning Pathways: An Evidence-Based Framework for Strategic Human Resource Development</h3>
-                            <span class="item-card-meta"><span class="category">Preprint</span> You, H. S. (2025)</span>
-                        </div>
-                        <p class="item-card-description">This study presents a comprehensive, interpretable machine learning analysis of the 2024 Stack Overflow Developer Survey to investigate the market value of developer skills and the effectiveness of various learning pathways. Employing XGBoost models and SHAP value interpretation, we estimate skill premiums, value impacts, and learning method ROI across developer subgroups. Results reveal optimal learning approaches for different career stages and technical domains, providing a data-driven framework for strategic human resource development.</p>
-                        <div class="item-card-links">
-                            <a href="https://zenodo.org/records/15422222" target="_blank">View on Zenodo</a>
-                        </div>
-                    </div>
-
-                    <div class="item-card">
-                         <div class="item-card-header">
-                            <h3 class="item-card-title">GovFundingChatbot: AI-Powered Grant Discovery Tool</h3>
-                            <span class="item-card-meta"><span class="category">AI Project</span> Lead Developer (2024-Ongoing)</span>
-                        </div>
-                        <p class="item-card-description">An ongoing project developing an AI chatbot using Python, LangChain, Streamlit, and OpenAI APIs to assist users in finding relevant government funding opportunities. This tool aims to simplify and democratize the grant discovery process for researchers and organizations, enhancing access to critical resources.</p>
-                        <div class="item-card-links">
-                            <a href="https://github.com/HosungYou/govfundingchatbot" target="_blank">View on GitHub</a>
-                            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317612149214691328/" target="_blank">Discuss on LinkedIn</a>
+                <div class="row">
+                    <div class="col s12 m6 l4">
+                        <div class="card hoverable">
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Developer Skills and Learning Pathways: An Evidence-Based Framework for Strategic Human Resource Development<i class="material-icons right">expand_more</i></span>
+                                <p><span class="category teal-text text-lighten-1">Preprint</span> You, H. S. (2025)</p>
+                                <p class="item-card-description truncate">This study presents a comprehensive, interpretable machine learning analysis of the 2024 Stack Overflow Developer Survey...</p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Full Abstract<i class="material-icons right">close</i></span>
+                                <p>This study presents a comprehensive, interpretable machine learning analysis of the 2024 Stack Overflow Developer Survey to investigate the market value of developer skills and the effectiveness of various learning pathways. Employing XGBoost models and SHAP value interpretation, we estimate skill premiums, value impacts, and learning method ROI across developer subgroups. Results reveal optimal learning approaches for different career stages and technical domains, providing a data-driven framework for strategic human resource development.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="https://zenodo.org/records/15422222" target="_blank">View on Zenodo</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="item-card">
-                        <div class="item-card-header">
-                            <h3 class="item-card-title">A Relationship among Self-direction, Teaching Presence, Social Presence and Perceived Academic Achievement of Teachers in Distance Training Program</h3>
-                            <span class="item-card-meta"><span class="category">Journal Article</span> Kim, J. J., You, H. S. (2022)</span>
+                    <div class="col s12 m6 l4">
+                        <div class="card hoverable">
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">GovFundingChatbot: AI-Powered Grant Discovery Tool<i class="material-icons right">expand_more</i></span>
+                                <p><span class="category blue-text text-lighten-1">AI Project</span> Lead Developer (2024-Ongoing)</p>
+                                <p class="item-card-description truncate">An ongoing project developing an AI chatbot using Python, LangChain, Streamlit, and OpenAI APIs...</p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Full Description<i class="material-icons right">close</i></span>
+                                <p>An ongoing project developing an AI chatbot using Python, LangChain, Streamlit, and OpenAI APIs to assist users in finding relevant government funding opportunities. This tool aims to simplify and democratize the grant discovery process for researchers and organizations, enhancing access to critical resources.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="https://github.com/HosungYou/govfundingchatbot" target="_blank">View on GitHub</a>
+                                <a href="https://www.linkedin.com/feed/update/urn:li:activity:7317612149214691328/" target="_blank">Discuss on LinkedIn</a>
+                            </div>
                         </div>
-                        <p class="item-card-description">This research examines the relationship between self-direction, teaching presence, social presence, and perceived academic achievement in distance training programs for teachers. The study provides insights into the factors that influence effective distance education, especially in the context of teacher professional development during the COVID-19 pandemic.</p>
-                        <div class="item-card-links">
-                            <a href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11248994" target="_blank">View Paper (in Korean)</a>
+                    </div>
+
+                    <div class="col s12 m6 l4">
+                        <div class="card hoverable">
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">A Relationship among Self-direction, Teaching Presence, Social Presence and Perceived Academic Achievement of Teachers in Distance Training Program<i class="material-icons right">expand_more</i></span>
+                                <p><span class="category green-text text-lighten-1">Journal Article</span> Kim, J. J., You, H. S. (2022)</p>
+                                <p class="item-card-description truncate">This research examines the relationship between self-direction, teaching presence, social presence, and perceived academic achievement...</p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Full Abstract<i class="material-icons right">close</i></span>
+                                <p>This research examines the relationship between self-direction, teaching presence, social presence, and perceived academic achievement in distance training programs for teachers. The study provides insights into the factors that influence effective distance education, especially in the context of teacher professional development during the COVID-19 pandemic.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11248994" target="_blank">View Paper (in Korean)</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -500,110 +570,141 @@
 
             <section id="cv" class="tab-pane">
                 <h2 class="section-title">Curriculum Vitae</h2>
-                <p>A summary of my academic and professional journey. <a href="./assets/Hosung You_CV_2025_May 14th.docx.pdf" target="_blank" class="cv-download-link">Download Full CV (PDF)</a>.</p>
+                <p>A summary of my academic and professional journey. <a href="./assets/Hosung You_CV_2025_May 14th.docx.pdf" target="_blank" class="waves-effect waves-light btn blue darken-1">Download Full CV (PDF)</a>.</p>
                 
                 <div class="cv-section">
                     <h3 class="cv-section-title">Education</h3>
-                    <div class="cv-item">
-                        <p class="cv-item-period">2022 - Present</p>
-                        <h4 class="cv-item-title">Ph.D. Student in Workforce Education and Development</h4>
-                        <p class="cv-item-institution">Penn State University, State College, PA</p>
-                        <ul class="cv-item-details">
-                            <li>Emphasis: Career Development, Human-AI Collaboration, Ethical Leadership</li>
-                            <li>Advisor: Dr. Hyung Joon Yoon</li>
-                        </ul>
-                    </div>
-                    <div class="cv-item">
-                        <p class="cv-item-period">2016 - 2020</p>
-                        <h4 class="cv-item-title">M.A. in Adult and Continuing Education</h4>
-                        <p class="cv-item-institution">Korea University, Seoul, Republic of Korea</p>
-                        <ul class="cv-item-details">
-                            <li>Dissertation: "Transformational leadership, work engagement, and mediators: meta-analytic structural equation modeling"</li>
-                        </ul>
-                    </div>
-                    <div class="cv-item">
-                        <p class="cv-item-period">2012 - 2017</p>
-                        <h4 class="cv-item-title">B.A. in Education, History</h4>
-                        <p class="cv-item-institution">Chonnam University, Gwangju, Republic of Korea</p>
-                    </div>
+                    <ul class="collection">
+                        <li class="collection-item">
+                            <span class="title">Ph.D. Student in Workforce Education and Development</span>
+                            <p class="grey-text lighten-1">Penn State University, State College, PA<br>
+                                <em class="grey-text lighten-2">2022 - Present</em>
+                            </p>
+                            <ul class="browser-default cv-item-details">
+                                <li>Emphasis: Career Development, Human-AI Collaboration, Ethical Leadership</li>
+                                <li>Advisor: Dr. Hyung Joon Yoon</li>
+                            </ul>
+                        </li>
+                        <li class="collection-item">
+                            <span class="title">M.A. in Adult and Continuing Education</span>
+                            <p class="grey-text lighten-1">Korea University, Seoul, Republic of Korea<br>
+                                <em class="grey-text lighten-2">2016 - 2020</em>
+                            </p>
+                            <ul class="browser-default cv-item-details">
+                                <li>Dissertation: "Transformational leadership, work engagement, and mediators: meta-analytic structural equation modeling"</li>
+                            </ul>
+                        </li>
+                        <li class="collection-item">
+                            <span class="title">B.A. in Education, History</span>
+                            <p class="grey-text lighten-1">Chonnam University, Gwangju, Republic of Korea<br>
+                                <em class="grey-text lighten-2">2012 - 2017</em>
+                            </p>
+                        </li>
+                    </ul>
                 </div>
                 
                 <div class="cv-section">
                     <h3 class="cv-section-title">Professional Experience</h3>
-                    <div class="cv-item">
-                        <p class="cv-item-period">May 2023 - Present</p>
-                        <h4 class="cv-item-title">Digital Communications Assistant (Promotion Staff)</h4>
-                        <p class="cv-item-institution">Professional Personnel Development Center, Penn State University</p>
-                        <ul class="cv-item-details">
-                            <li>Rebuild and enhance the online presence of the PPDC.</li>
-                            <li>Responsible for ensuring digital platform reflects commitment to quality.</li>
-                        </ul>
-                    </div>
-                     <div class="cv-item">
-                        <p class="cv-item-period">September 2022 - May 2023</p>
-                        <h4 class="cv-item-title">Research Assistant</h4>
-                        <p class="cv-item-institution">Workforce Education and Development Program, Penn State University</p>
-                        <ul class="cv-item-details">
-                             <li>Assisted Dr. Yoon in research on human agency and hope.</li>
-                             <li>Contributed to developing the Human Agency-Based Individual Transformation (HABIT) model.</li>
-                        </ul>
-                    </div>
+                    <ul class="collection">
+                        <li class="collection-item">
+                            <span class="title">Digital Communications Assistant (Promotion Staff)</span>
+                            <p class="grey-text lighten-1">Professional Personnel Development Center, Penn State University<br>
+                                <em class="grey-text lighten-2">May 2023 - Present</em>
+                            </p>
+                            <ul class="browser-default cv-item-details">
+                                <li>Rebuild and enhance the online presence of the PPDC.</li>
+                                <li>Responsible for ensuring digital platform reflects commitment to quality.</li>
+                            </ul>
+                        </li>
+                         <li class="collection-item">
+                            <span class="title">Research Assistant</span>
+                            <p class="grey-text lighten-1">Workforce Education and Development Program, Penn State University<br>
+                                <em class="grey-text lighten-2">September 2022 - May 2023</em>
+                            </p>
+                            <ul class="browser-default cv-item-details">
+                                 <li>Assisted Dr. Yoon in research on human agency and hope.</li>
+                                 <li>Contributed to developing the Human Agency-Based Individual Transformation (HABIT) model.</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>   
                 <div class="cv-section">
                     <h3 class="cv-section-title">Skills</h3>
-                     <div class="cv-item">
-                         <h4 class="cv-item-title">Technical & Research Skills</h4>
-                         <ul class="cv-item-details">
-                            <li><strong>Research Applications:</strong> SPSS, R, Mplus, AMOS, NVivo</li>
-                            <li><strong>AI & Programming:</strong> Python (NumPy, Pandas, Scikit-learn), SQL, LangChain, OpenAI API, Streamlit, FastAPI</li>
-                            <li><strong>Collaboration Tools:</strong> n8n, Zapier, LangGraph, GitHub</li>
-                            <li><strong>Languages:</strong> Korean (Native), English (Fluent)</li>
-                         </ul>
-                    </div>
+                     <ul class="collection">
+                        <li class="collection-item">
+                            <span class="title">Technical & Research Skills</span>
+                             <ul class="browser-default cv-item-details">
+                                <li><strong>Research Applications:</strong> SPSS, R, Mplus, AMOS, NVivo</li>
+                                <li><strong>AI & Programming:</strong> Python (NumPy, Pandas, Scikit-learn), SQL, LangChain, OpenAI API, Streamlit, FastAPI</li>
+                                <li><strong>Collaboration Tools:</strong> n8n, Zapier, LangGraph, GitHub</li>
+                                <li><strong>Languages:</strong> Korean (Native), English (Fluent)</li>
+                             </ul>
+                        </li>
+                    </ul>
                 </div>
             </section>
 
             <section id="discussion" class="tab-pane">
                 <h2 class="section-title">Discussions & Insights</h2>
                 <p>Engage with my ongoing research thoughts, questions, and calls for collaboration.</p>
-                <div class="card-grid">
-                    <div class="item-card">
-                        <div class="item-card-header">
-                            <h3 class="item-card-title">Developer Skills and Learning Pathways: Explainable AI for Workforce Development</h3>
-                            <span class="item-card-meta"><span class="category">GitHub Discussions</span> Topic Initiated: May 15, 2025</span>
-                        </div>
-                        <p class="item-card-description">This discussion explores my recent paper analyzing developer skills and learning pathways using XGBoost and SHAP analysis. The research quantifies how technical skills, learning approaches, and career stages interact to determine market value. Do you have feedback on the methodology, questions about the data structure, or thoughts on applying these insights to workforce development? Join the discussion on GitHub to share your perspectives on this explainable AI approach to human resource development.</p>
-                        <div class="item-card-links">
-                            <a href="https://github.com/HosungYou/StackOverFlow_HRD_2024_Research/discussions/1" target="_blank">Join the Conversation on GitHub</a>
+                <div class="row">
+                    <div class="col s12 m6 l4">
+                        <div class="card hoverable">
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Developer Skills and Learning Pathways: Explainable AI for Workforce Development<i class="material-icons right">expand_more</i></span>
+                                <p><span class="category light-blue-text text-accent-3">GitHub Discussions</span> Topic Initiated: May 15, 2025</p>
+                                <p class="item-card-description truncate">This discussion explores my recent paper analyzing developer skills and learning pathways using XGBoost and SHAP analysis...</p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Full Details<i class="material-icons right">close</i></span>
+                                <p>This discussion explores my recent paper analyzing developer skills and learning pathways using XGBoost and SHAP analysis. The research quantifies how technical skills, learning approaches, and career stages interact to determine market value. Do you have feedback on the methodology, questions about the data structure, or thoughts on applying these insights to workforce development? Join the discussion on GitHub to share your perspectives on this explainable AI approach to human resource development.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="https://github.com/HosungYou/StackOverFlow_HRD_2024_Research/discussions/1" target="_blank">Join the Conversation on GitHub</a>
+                            </div>
                         </div>
                     </div>
+                    <!-- Add more discussion cards here in new col s12 m6 l4 divs -->
                 </div>
             </section>
 
             <section id="data-codes" class="tab-pane">
                 <h2 class="section-title">Datasets & Code</h2>
                 <p>Open resources from my research, available for academic and non-commercial use. Please cite appropriately.</p>
-                <div class="card-grid">
-                    <div class="item-card">
-                        <div class="item-card-header">
-                             <span class="item-card-meta"><span class="category">Analysis Framework</span> PDF, Excel | Updated: 2025-05-14</span>
-                            <h3 class="item-card-title">Learning Pathway Matrix</h3>
-                        </div>
-                        <p class="item-card-description">A framework for mapping optimal learning resources and approaches based on technical domain and career stage, derived from the "Developer Skills" research. Provides strategic guidance for workforce development.</p>
-                        <div class="item-card-links">
-                            <a href="https://zenodo.org/records/15422222" target="_blank">Access on Zenodo</a>
-                        </div>
-                    </div>
-                    <div class="item-card">
-                        <div class="item-card-header">
-                            <span class="item-card-meta"><span class="category">Python Code</span> Tech: Python, Streamlit, LangChain | Updated: 2024</span>
-                            <h3 class="item-card-title">GovFundingChatbot Source Code</h3>
-                        </div>
-                        <p class="item-card-description">Source code for the GovFundingChatbot, an AI-driven assistant for navigating and identifying government grants. Built with Python, Streamlit, and LangChain.</p>
-                        <div class="item-card-links">
-                            <a href="https://github.com/HosungYou/govfundingchatbot" target="_blank">Access Code on GitHub</a>
+                <div class="row">
+                    <div class="col s12 m6 l4">
+                        <div class="card hoverable">
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Learning Pathway Matrix<i class="material-icons right">expand_more</i></span>
+                                <p><span class="category purple-text text-lighten-1">Analysis Framework</span> PDF, Excel | Updated: 2025-05-14</p>
+                                <p class="item-card-description truncate">A framework for mapping optimal learning resources and approaches based on technical domain and career stage...</p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Full Description<i class="material-icons right">close</i></span>
+                                <p>A framework for mapping optimal learning resources and approaches based on technical domain and career stage, derived from the "Developer Skills" research. Provides strategic guidance for workforce development.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="https://zenodo.org/records/15422222" target="_blank">Access on Zenodo</a>
+                            </div>
                         </div>
                     </div>
+                    <div class="col s12 m6 l4">
+                        <div class="card hoverable">
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">GovFundingChatbot Source Code<i class="material-icons right">expand_more</i></span>
+                                <p><span class="category indigo-text text-lighten-1">Python Code</span> Tech: Python, Streamlit, LangChain | Updated: 2024</p>
+                                <p class="item-card-description truncate">Source code for the GovFundingChatbot, an AI-driven assistant for navigating and identifying government grants...</p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Full Description<i class="material-icons right">close</i></span>
+                                <p>Source code for the GovFundingChatbot, an AI-driven assistant for navigating and identifying government grants. Built with Python, Streamlit, and LangChain.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="https://github.com/HosungYou/govfundingchatbot" target="_blank">Access Code on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more dataset/code cards here in new col s12 m6 l4 divs -->
                 </div>
             </section>
         </div>
@@ -617,21 +718,27 @@
         </div>
     </footer>
 
-<script>
-    function openTab(evt, tabName) {
-        var i, tabPane, tabButtons;
-        tabPane = document.getElementsByClassName("tab-pane");
-        for (i = 0; i < tabPane.length; i++) {
-            tabPane[i].classList.remove("active");
-        }
-        tabButtons = document.querySelectorAll(".tabs-list .tab-item button");
-        for (i = 0; i < tabButtons.length; i++) {
-            tabButtons[i].classList.remove("active");
-        }
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.classList.add("active");
-    }
-</script>
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Materialize Tabs
+            var tabs = document.querySelectorAll('.tabs');
+            M.Tabs.init(tabs, {});
+
+            // Initialize Materialize Collapsible (if you plan to use them later for CV sections for example)
+            // var collapsibles = document.querySelectorAll('.collapsible');
+            // M.Collapsible.init(collapsibles, {});
+
+            // Initialize Materialize Modals (if you plan to use them later)
+            // var modals = document.querySelectorAll('.modal');
+            // M.Modal.init(modals, {});
+            
+            // Initialize Materialize Sidenav
+            var sidenavs = document.querySelectorAll('.sidenav');
+            M.Sidenav.init(sidenavs, {});
+        });
+    </script>
 
 </body>
 </html>
